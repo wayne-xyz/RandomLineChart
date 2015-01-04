@@ -13,6 +13,7 @@
 		C836FABE1A519E1F006AFD8D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C836FABD1A519E1F006AFD8D /* Images.xcassets */; };
 		C836FAC11A519E1F006AFD8D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C836FABF1A519E1F006AFD8D /* LaunchScreen.xib */; };
 		C836FACD1A519E1F006AFD8D /* RandomLineChartTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C836FACC1A519E1F006AFD8D /* RandomLineChartTests.swift */; };
+		C836FAD71A51A056006AFD8D /* RandomLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = C836FAD61A51A056006AFD8D /* RandomLineChart.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		C836FAC61A519E1F006AFD8D /* RandomLineChartTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RandomLineChartTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C836FACB1A519E1F006AFD8D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C836FACC1A519E1F006AFD8D /* RandomLineChartTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomLineChartTests.swift; sourceTree = "<group>"; };
+		C836FAD61A51A056006AFD8D /* RandomLineChart.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomLineChart.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 			children = (
 				C836FAB61A519E1F006AFD8D /* AppDelegate.swift */,
 				C836FAB81A519E1F006AFD8D /* ViewController.swift */,
+				C836FAD61A51A056006AFD8D /* RandomLineChart.swift */,
 				C836FABA1A519E1F006AFD8D /* Main.storyboard */,
 				C836FABD1A519E1F006AFD8D /* Images.xcassets */,
 				C836FABF1A519E1F006AFD8D /* LaunchScreen.xib */,
@@ -212,6 +215,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C836FAD71A51A056006AFD8D /* RandomLineChart.swift in Sources */,
 				C836FAB91A519E1F006AFD8D /* ViewController.swift in Sources */,
 				C836FAB71A519E1F006AFD8D /* AppDelegate.swift in Sources */,
 			);
