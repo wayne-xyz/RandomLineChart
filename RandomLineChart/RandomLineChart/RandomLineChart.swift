@@ -6,9 +6,10 @@
 //  Copyright (c) 2014年 LivinSpring. All rights reserved.
 // 1.0cRandomLineChart
 // 1.0:   only 3 xlabel, 3 ylable,only first quadrant,y should be cgfloat ,x should beNSdate,first SetUI,second setData,end drawLine
+//upddate 2023 oct, fpr mew version swift
 
 import Foundation
-import UIkit
+import UIKit
 
 class RandomLineChart:UIView {
     
@@ -24,9 +25,9 @@ class RandomLineChart:UIView {
     var xLabelHeight:CGFloat = 20
     var lineWidth:CGFloat = 4
     //uicolor, you can do some custom setting
-    var chartFillColor:UIColor = UIColor.whiteColor() //this is backgroudcolor of the chart
+    var chartFillColor:UIColor = UIColor.white //this is backgroudcolor of the chart
     
-    var chartLineColor:UIColor = UIColor.blackColor()
+    var chartLineColor:UIColor = UIColor.black
     
     
     enum ChartMode {  //this is x mode in particular,y is always from zero to max
@@ -42,20 +43,20 @@ class RandomLineChart:UIView {
     func drawLine(){ //draw the line to this chart
         
         chartLineLayer.frame=self.bounds
-        chartLineLayer.path = linePath.CGPath
-        chartLineLayer.strokeColor = chartLineColor.CGColor
+        chartLineLayer.path = linePath.cgPath
+        chartLineLayer.strokeColor = chartLineColor.cgColor
         chartLineLayer.lineWidth = lineWidth
-        chartLineLayer.fillColor = chartFillColor.CGColor
+        chartLineLayer.fillColor = chartFillColor.cgColor
         chartLineLayer.strokeStart = 0.0
         chartLineLayer.strokeEnd = 1.0
         
         CATransaction.begin()
-        var pathAnimation:CABasicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        let pathAnimation:CABasicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         pathAnimation.duration = 1.0
-        pathAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        pathAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
         pathAnimation.fromValue = 0
         pathAnimation.toValue = 1.0
-        chartLineLayer.addAnimation(pathAnimation, forKey: "strokeEndAnimation")
+        chartLineLayer.add(pathAnimation, forKey: "strokeEndAnimation")
         chartLineLayer.strokeEnd = 1.0
         CATransaction.commit()
         
@@ -68,13 +69,13 @@ class RandomLineChart:UIView {
     
     func showLabels(){
         //x labels
-        var xLableCount = CGFloat( xChartLables.count)
-        for var xi:NSInteger = 0 ; xi < xChartLables.count ; ++xi{
-            var label:UILabel = xChartLables[xi]
+        let xLableCount = CGFloat( xChartLables.count)
+        for xi in 0..<xChartLables.count{
+            let label:UILabel = xChartLables[xi]
             label.sizeToFit()
             var x = CGFloat(xi) * (self.frame.width / (xLableCount - 1))
-            var y = self.frame.height - xLabelHeight
-            var xWidth = label.frame.width
+            let y = self.frame.height - xLabelHeight
+            let xWidth = label.frame.width
             if xi == xChartLables.count - 1 {  //the last xlabel shoud be totally in frame of the chart 
                 x = x - xWidth
             }
@@ -83,10 +84,10 @@ class RandomLineChart:UIView {
             
         }
         //y labels
-        var yLabelCount = CGFloat(yChartLables.count)
-        for var yi:NSInteger = 0 ; yi < yChartLables.count ; ++yi{
-            var y = self.frame.height  - CGFloat(yi+1) * ((self.frame.height - xLabelHeight) / yLabelCount)
-            var label:UILabel = yChartLables[yi]
+        let yLabelCount = CGFloat(yChartLables.count)
+        for yi in 0..<yChartLables.count {
+            let y = self.frame.height  - CGFloat(yi+1) * ((self.frame.height - xLabelHeight) / yLabelCount)
+            let label:UILabel = yChartLables[yi]
             label.sizeToFit()
             label.frame=CGRect(x: 0, y: y, width: label.frame.width, height: label.frame.height)
             self.addSubview(label)
@@ -99,51 +100,51 @@ class RandomLineChart:UIView {
     func setData(xData:NSMutableArray,yData:NSMutableArray,cMode:ChartMode){  //change originalx,ydate to linePath
         originalXData=xData
         originalYData=yData
-        var yMax = arrayMax(yData)
+        let yMax = arrayMax(ar: yData)
         
-        var chartHeight = self.frame.size.height - xLabelHeight
-        var chartWidth = self.frame.size.width
+        let chartHeight = self.frame.size.height - xLabelHeight
+        let chartWidth = self.frame.size.width
         xChartLables = []
         yChartLables = []
         
         if cMode == ChartMode.NSDateMode {  //change NSDate from zero to max,unit is s
-            var lastDate = originalXData.lastObject as NSDate
-            var firstDate = originalXData.firstObject as NSDate
-            var xAllInterval = lastDate.timeIntervalSinceDate(firstDate) //the length from min to max
-            for var ind:NSInteger = 0;ind < originalXData.count ;++ind {
-                var yValue = originalYData.objectAtIndex(ind) as CGFloat
-                var yProportion =  (yMax - yValue) / yMax
-                var xValue = originalXData.objectAtIndex(ind) as NSDate
-                var indInterval = xValue.timeIntervalSinceDate(firstDate)
-                var xProportion = CGFloat( indInterval / xAllInterval)
-                var x = xProportion * chartWidth
-                var y = yProportion * chartHeight
+            let lastDate = originalXData.lastObject as! NSDate
+            let firstDate = originalXData.firstObject as! NSDate
+            let xAllInterval = lastDate.timeIntervalSince(firstDate as Date) //the length from min to max
+            for ind in 0..<originalXData.count{
+                let yValue = originalYData.object(at: ind) as! CGFloat
+                let yProportion =  (yMax - yValue) / yMax
+                let xValue = originalXData.object(at: ind) as! NSDate
+                let indInterval = xValue.timeIntervalSince(firstDate as Date)
+                let xProportion = CGFloat( indInterval / xAllInterval)
+                let x = xProportion * chartWidth
+                let y = yProportion * chartHeight
                 //println("x:\(x) , y\(y)")
                 if ind == 0 {
-                    linePath.moveToPoint(CGPoint(x: x, y: y))
+                    linePath.move(to: CGPoint(x: x, y: y))
                 }else{
-                    linePath.addLineToPoint(CGPoint(x: x, y: y))
+                    linePath.addLine(to: CGPoint(x: x, y: y))
                 }
             }
             
             //three Label style
-            var xLabelMaxText:NSString = NSString(format: "%02d:%02d", NSInteger(xAllInterval) / 3600,NSInteger(xAllInterval) % 3600 / 60)  //show hh:mm format
-            var xLabelMidText:NSString = NSString(format: "%02d:%02d", NSInteger(xAllInterval)  / 2 / 3600,NSInteger(xAllInterval) / 2 % 3600 / 60)  //show hh:mm format
-            var xLabelMinText:NSString = "0"
-            var xLabelStr:[NSString] = [xLabelMinText,xLabelMidText,xLabelMaxText]
+            let xLabelMaxText:NSString = NSString(format: "%02d:%02d", NSInteger(xAllInterval) / 3600,NSInteger(xAllInterval) % 3600 / 60)  //show hh:mm format
+            let xLabelMidText:NSString = NSString(format: "%02d:%02d", NSInteger(xAllInterval)  / 2 / 3600,NSInteger(xAllInterval) / 2 % 3600 / 60)  //show hh:mm format
+            let xLabelMinText:NSString = "0"
+            let xLabelStr:[NSString] = [xLabelMinText,xLabelMidText,xLabelMaxText]
             for xlstr in xLabelStr {
-                var xLabel:UILabel = UILabel()
-                xLabel.text = xlstr
+                let xLabel:UILabel = UILabel()
+                xLabel.text = String(xlstr)
                 xChartLables.append(xLabel)
             }
             
             
-            var yLabelMaxText:NSString = "\(yMax)"  //ylabel only 2 labels
-            var yLabelMidText:NSString = "\(yMax/2)"
-            var yLabels:[NSString] = [yLabelMidText,yLabelMaxText]
+            let yLabelMaxText:NSString = "\(yMax)" as NSString //ylabel only 2 labels
+            let yLabelMidText:NSString = "\(yMax/2)" as NSString
+            let yLabels:[NSString] = [yLabelMidText,yLabelMaxText]
             for ylstr in yLabels{
-                var yLabel:UILabel = UILabel()
-                yLabel.text = ylstr
+                let yLabel:UILabel = UILabel()
+                yLabel.text = String(ylstr)
                 yChartLables.append(yLabel)
             }
         }
@@ -155,7 +156,7 @@ class RandomLineChart:UIView {
     func arrayMax(ar:NSMutableArray)-> CGFloat{ //get max value of arrayValue,after setData,ydata is always >0
         var max:CGFloat = 0.0
         for one in ar {
-            var o:CGFloat = one as CGFloat
+            let o:CGFloat = one as! CGFloat
             if o > max {
                 max=o
             }
@@ -164,11 +165,11 @@ class RandomLineChart:UIView {
     }
     
     func removeAllLayers(){
-        if self.isKindOfClass(UIView) {
-            self.layer.sublayers.removeAll(keepCapacity: true)
+        
+            self.layer.sublayers?.removeAll()
             chartLineLayer.removeFromSuperlayer()
             self.layer.sublayers=nil
-        }
+      
         
     }
     

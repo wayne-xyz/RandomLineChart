@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
     }
     
@@ -40,22 +40,22 @@ class ViewController: UIViewController {
     func TestData(){
         //here is test data
    
-        var ytest:NSMutableArray = [0.0,10.2,13.44,16,12]
-        var xtest:NSMutableArray = NSMutableArray()
-        var dateFormatter:NSDateFormatter =  NSDateFormatter()
+        let ytest:NSMutableArray = [0.0,10.2,13.44,16,12]
+        let xtest:NSMutableArray = NSMutableArray()
+        let dateFormatter:DateFormatter =  DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        var date:NSDate = dateFormatter.dateFromString("2010-08-04 16:01:03")!
-        var date2:NSDate = dateFormatter.dateFromString("2010-08-04 16:03:03")!
-        var date3:NSDate = dateFormatter.dateFromString("2010-08-04 16:07:43")!
-        var date4:NSDate = dateFormatter.dateFromString("2010-08-04 16:12:13")!
-        var date5:NSDate = dateFormatter.dateFromString("2010-08-04 16:14:23")!
-        xtest.addObject(date)
-        xtest.addObject(date2)
-        xtest.addObject(date3)
-        xtest.addObject(date4)
-        xtest.addObject(date5)
+        let date:NSDate = dateFormatter.date(from: "2010-08-04 16:01:03")! as NSDate
+        let date2:NSDate = dateFormatter.date(from: "2010-08-04 16:03:03")! as NSDate
+        let date3:NSDate = dateFormatter.date(from: "2010-08-04 16:07:43")! as NSDate
+        let date4:NSDate = dateFormatter.date(from: "2010-08-04 16:12:13")! as NSDate
+        let date5:NSDate = dateFormatter.date(from:"2010-08-04 16:14:23")! as NSDate
+        xtest.add(date)
+        xtest.add(date2)
+        xtest.add(date3)
+        xtest.add(date4)
+        xtest.add(date5)
         
-        chartView.setData(xtest, yData: ytest, cMode: RandomLineChart.ChartMode.NSDateMode)
+        chartView.setData(xData: xtest, yData: ytest, cMode: RandomLineChart.ChartMode.NSDateMode)
         chartView.drawLine()
    
     }
