@@ -1,5 +1,7 @@
 RandomLineChart
 ===============
+2023-Oct Update for the Swift5 and iOS 16.
+It's still keeping update.
 
 A sample line chart for iOS by swift, it support asymmetric NSDate as X axis data.
 All code is in swift,And Myview in Demo is set in storyboard.
@@ -22,6 +24,5 @@ My Demo Code:
         
         chartView.setData(xtest, yData: ytest, cMode: RandomLineChart.ChartMode.NSDateMode)
         chartView.drawLine()
-![alt](http://www.zoejblog.com/content/images/2015/01/-----2015-01-04---10-40-21.png)
 
 It is a simple chart and it has some bug.
